@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -136,19 +135,16 @@ class Article
 
     /**
      * @ORM\Column(type="float", scale=4, precision=6)
-     * @Groups({"article"})
      */
     private $lat;
 
     /**
      * @ORM\Column(type="float", scale=4, precision=7)
-     * @Groups({"article"})
      */
     private $lng;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
-     * @Groups({"article"})
      */
     private $city;
 
