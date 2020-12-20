@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ctn">
+            <h4 class="allArticlesNav"><span class="allArticlesTitle">Publications</span>
+                    <a class="dropdown-toggle categoryDropDwn" href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filtrer par régions
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for category in categories %}
+                            {% if category.article is not empty %}
+                                <a class="dropdown-item catItemDwn" href="#{{ category.name }}">{{ category.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+            </h4>
+            {% for category in categories %}
+                {% if category.article is not empty %}
+                    <div class="catId" id="{{ category.name }}"></div>
+                    <h4 class="catTitle" id="{{ category.id }}">{{ category.name | upper }}</h4>
+                {% endif %}
+                <div class="row" id="rowCtn">
+                    {% for article in category.article %}
+                        <div class="col-lg-3 col-md-6 col-sm-7">
+                            <div class="card articleCard" id="allArticlesCard">
+                                <img class="card-img allArticlesImg"
+                                     src="{{ vich_uploader_asset(article, 'photoFile') }}"
+                                     alt="{{ article.title }}">
+                                <div class="articleHead">
+                                    <h5 class="card-title articleTitle">{{ article.title|raw }}</h5>
+                                    <a href="{{ path('all_article_like', {'id' : article.id }) }}"
+                                       class="btn btn-link js-like" id="likeStyle">
+                                        <span class="js-likes">{{ article.likes | length }}</span>
+                                        {% if app.user and article.isLikedByUser(app.user) %}
+                                            <i class="fas fa-heart"></i>
+                                        {% else %}
+                                            <i class="far fa-heart"></i>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="row">
+                                    {% for category in article.category %}
+                                        <div class="card-title articleCategory">{{ category.name }}</div>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                                <div class="bottomCard">
+                                    <div class="profileCard">
+                                        {% if article.author.avatar %}
+                                            {% set user = article.author %}
+                                            <img class="avatarCard" src="{{ vich_uploader_asset(user, 'avatarFile') }}"
+                                                 alt="Photo du Profil">
+                                        {% endif %}
+                                        <span id="authorCard">
+                                               <a class="profileLink"
+                                                  href="{{ path('profile', {'id': article.author.id}) }}">{{ article.author.username }}</a>
+                                    </span>
+                                    </div>
+                                </div>
+                                <a class="detailsLink"
+                                   href="{{ path('article_details', {'id': article.id}) }}">Voir la publication
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+    </div>
+            {% endfor %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const LIKE_ICON = 'far fa-heart';
+        const UNLIKE_ICON = 'fas fa-heart';
+        Array.from(document.querySelectorAll('a.js-like')).forEach(function (link) {
+            link.addEventListener('click', onClickLink);
+        });
+
+        async function onClickLink(event) {
+            event.preventDefault();
+            const url = this.href;
+            const icone = this.querySelector('i');
+            const count = this.querySelector('span.js-likes');
+            try {
+                const result = await axios.post(url);
+                const data = result.data;
+                icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
+                count.textContent = data.likes;
+            } catch (error) {
+                if (error.response.status === 403) {
+                    window.location = '/login'
+                }
+            }
+        }
+    </script>
+{% endblock %}

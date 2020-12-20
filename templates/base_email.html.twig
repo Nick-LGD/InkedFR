@@ -1,0 +1,29 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/email.css')) %}
+    <container>
+        <row class="header">
+            <columns>
+                <a href="{{ url('home') }}">
+                    <img src="https://i.postimg.cc/pTWPd0db/inkedfr.png" alt="">
+                </a>
+            </columns>
+        </row>
+        {% block body %}
+        {% endblock %}
+        <row class="footer">
+            <columns>
+                <p>Cordialement,</p>
+                <p><em>La Team Inked France</em></p>
+            </columns>
+        </row>
+        <row class="bottom">
+            <columns>
+                <center>
+                    <spacer size="20"></spacer>
+                    <div>
+                       ️Inked France 2020
+                    </div>
+                </center>
+            </columns>
+        </row>
+    </container>
+{% endapply %}

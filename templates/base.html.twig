@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta lang="fr">
+    <meta name="author" content="Nicolas Legrand">
+    <meta name="description" content="Inked France ">
+    <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Inked France{% endblock %}</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+{% block stylesheets %}
+{% endblock %}
+<body>
+<nav>
+    <div class="logo">Inked France</div>
+    <input type="checkbox" id="click">
+    <label for="click" class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul>
+        <li><a href="{{ path('home') }}">Home</a></li>
+        {% if app.user %}
+        <li><a href="{{ path('profile', {'id': app.user.id }) }}">Mon compte</a></li>
+        {% endif %}
+        {% if app.user %}
+            <li><a href="{{ path('all_articles') }}">Publications</a></li>
+        {% endif %}
+        {% if app.user %}
+        <li><a href="{{ path('contact') }}">Nous contacter</a></li>
+        {% endif %}
+        {% if app.user %}
+        <li><a href="{{ path('app_logout') }}">Se Déconnecter</a></li>
+        {% else %}
+        <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+<!-- Site footer -->
+<div class="bg-footer">
+    <footer class="page-footer font-small pt-4">
+        <div class="container-fluid text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3 text-center">
+                    <img src="https://i.postimg.cc/pTWPd0db/inkedfr.png" alt="logo" class="img-fluid">
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-3 mb-md-0 mb-3  text-sm-center">
+                    <h5 class="text-uppercase text-mauve text-bolder">Informations</h5>
+                    <ul class="list-unstyled text-bolder">
+                        <li>
+                            <a href="{{ path('about') }}">À propos</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('politics') }}">Politique de confidentialité</a>
+                        </li>
+                        <li>
+                            <a href="">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-md-0 mb-3 text-sm-center">
+                    <h5 class="text-uppercase text-mauve text-bolder">Nous suivre</h5>
+                    <ul class="list-unstyled text-bolder">
+                        <li>
+                            <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 text-white text-bolder">© Inked France 2020
+            {# <a href=""> youmoro.com</a> #}
+        </div>
+    </footer>
+</div>
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/249275cf92.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    {# SEARCH BAR ALGOLIA #}
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+    <script>
+        let inputAddress = document.querySelector('#article_address')
+        if (inputAddress === null) {
+        }
+        var placesAutocomplete = places({
+            container: document.querySelector('#article_address')
+        });
+        placesAutocomplete.on('change', e => {
+            document.querySelector('#article_city').value = e.suggestion.city
+            document.querySelector('#article_zipcode').value = e.suggestion.postcode
+            document.querySelector('#article_lat').value = e.suggestion.latlng.lat
+            document.querySelector('#article_lng').value = e.suggestion.latlng.lng
+        })
+    </script>
+
+{% endblock %}
+</html>

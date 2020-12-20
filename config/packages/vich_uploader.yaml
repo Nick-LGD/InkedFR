@@ -1,0 +1,100 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        article_photo:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        article_photoB:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        article_photoC:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        home_targetImg:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        home_targetImgPlace:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        home_sectionImg:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        home_banner:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        user_avatar:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        contribute_step1:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        contribute_step2:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        contribute_step3:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        contribute_step4:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

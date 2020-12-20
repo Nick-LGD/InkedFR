@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+    <div class="ctn">
+    <h1 class="detailsTitle">Modifier mon profil</h1>
+
+    {% if app.user.id is same as (user.id) %}
+        <fieldset class="formUser">
+            {{ form_start(form ) }}
+            <h3 class="text-center formCtnTitle">Général</h3>
+            <div class="formCtn">
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.username, '* Nom d\'utilisateur') }}
+                                 </span>
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.avatarFile, 'Photo de Profil') }}
+                          </span>
+                    {{ form_widget(form.avatarFile) }}
+                </div>
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.firstname, 'Prénom') }}
+                          </span>
+                    {{ form_widget(form.firstname) }}
+                </div>
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.lastname, 'Nom') }}
+                          </span>
+                    {{ form_widget(form.lastname) }}
+                </div>
+            </div>
+            <h3 class="text-center formCtnTitle">Coordonnées</h3>
+            <div class="formCtn">
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.email, '* Email') }}
+                                 </span>
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.phone, 'Téléphone') }}
+                                </span>
+                    {{ form_widget(form.phone) }}
+                </div>
+                <div class="formInput">
+                          <span class="bold grey">
+                {{ form_label(form.mobile, 'Mobile') }}
+                                </span>
+                    {{ form_widget(form.mobile) }}
+                </div>
+            </div>
+            <div class="center">
+                <p>* Tous ces champs sont obligatoires</p>
+            </div>
+            <div class="center">
+                <button class="loginBtn" id="publishBtn">{{ button_label|default('Sauvegarder') }}</button>
+            </div>
+            <div class="center">
+                <a class="logLink" href="{{ path('profile', {'id': app.user.id }) }}">Retour</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="center">
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    {% else %}
+        <div class="mustCo">
+            <p class="mustCoBody">Vous ne pouvez pas modifier les informations d'un autre utilisateur</p>
+        </div>
+    {% endif %}
+{% endblock %}

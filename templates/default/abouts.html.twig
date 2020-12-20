@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        {% for about in abouts %}
+        <div class="container">
+            <div style="height: 150px"></div>
+            <div class="row border rounded p-5">
+                <div class="col-12 text-center">
+                    <h1 class="detailsTitle">{{ about.title|raw }}</h1>
+                </div>
+                <div class="col-12 py-5">
+                        <h3 class="contributeStepTitle bold">{{ about.step1Title|raw}}</h3>
+                        <p>{{ about.step1Body|raw }}</p>
+                        <hr class="my-4">
+                        <div class="text-center">
+                            <img class="img-fluid" src="{{ vich_uploader_asset(about, 'step1ImgFile') }}" alt="image" width="350px">
+                        </div>
+                    <div class="text-center mt-5">
+                        <a href="{{ path('contact') }}" class="btn btn-purple">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 150px"></div>
+        </div>
+{% endfor %}
+{% endblock %}
