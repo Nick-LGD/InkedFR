@@ -221,18 +221,7 @@ class DefaultController extends AbstractController
         $em->persist($like);
         $em->flush();
 
-        return $this->json(['message' => 'Liked', 'likes' => $articleLikeRepository->count(['article' => $article])], 200);
+        return $this->json(['likes' => $articleLikeRepository->count(['article' => $article])], 200);
     }
-
-    /**
-     * @Route("/articles-js", name = "articles-js")
-     * @param ArticleRepository $articleRepository
-     * @return JsonResponse
-     */
-    public function articlesForJs(ArticleRepository $articleRepository): JsonResponse
-    {
-        return $this->json($articleRepository->findAll(), 200, [], ['groups' => 'article']);
-    }
-
 
 }
