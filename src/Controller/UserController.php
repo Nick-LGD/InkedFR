@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Entity\ArticleLike;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\MoreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -12,7 +12,6 @@ use App\Repository\AboutsRepository;
 use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
 use App\Repository\HomepageRepository;
 use App\Repository\MoreRepository;
 use DateTime;
@@ -55,32 +54,6 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/details/{id}", name="article_details")
-     * @param Article $article
-     * @param Request $request
-     * @param $commentRepository
-     * @return Response
-     */
-    public function articleDetails(Article $article, Request $request,CommentRepository $commentRepository): Response
-    {
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $user = $this->getUser();
-            $comment->setArticle($article);
-            $comment->setAuthor($user);
-            $entityManager->persist($comment);
-            $entityManager->flush();
-        }
-        return $this->render('default/article_details.html.twig', [
-            'article' => $article,
-            'form' => $form->createView(),
-            'comments' => $commentRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="comment_delete", methods={"DELETE"})

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
-use App\Repository\MoreRepository;
+use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,6 @@ class ArticleController extends AbstractController
     /**
      * @Route("/ajouter", name="article_new", methods={"GET","POST"})
      * @param Request $request
-     * @param MoreRepository $moreRepository
      * @return Response
      */
     public function new(Request $request): Response
@@ -69,6 +70,33 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/details/{id}", name="article_details")
+     * @param Article $article
+     * @param Request $request
+     * @param $commentRepository
+     * @return Response
+     */
+    public function articleDetails(Article $article, Request $request,CommentRepository $commentRepository): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $comment->setArticle($article);
+            $comment->setAuthor($user);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
+        return $this->render('article/article_details.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(),
+            'comments' => $commentRepository->findAll(),
+        ]);
+    }
+
 
 
     /**
